@@ -3,7 +3,7 @@
 ![GStreamer Logo](https://gstreamer.freedesktop.org/data/images/artwork/gstreamer-logo-50.png)
 
 ## Overview
-GStreamer is a cross-platform multimedia framework supporting Windows, Linux, Android, and iOS. It enables developers to construct processing pipelines through interconnected elements, providing flexible multimedia handling capabilities.
+GStreamer is a cross-platform multimedia framework supporting Windows, Linux, Android, and iOS. It enables developers to construct processing pipelines through interconnected elements, providing flexible multimedia handling capabilities with support for dynamic pipeline reconfiguration.
 
 ## Framework Architecture
 
@@ -18,6 +18,7 @@ graph TD
 - Built-in tools (`gst-launch`, `gst-inspect`)
 - High-level libraries (`gst-player`, `gst-rtsp-server`)
 - Custom applications using GStreamer APIs
+- Production deployments using GStreamer daemon (gstd)
 
 #### Core Framework
 - Plugin management system
@@ -42,7 +43,7 @@ graph TD
 | gstreamer           | Core framework & essential elements         |
 | gst-plugins-base    | LGPL-licensed basic plugins                  |
 | gst-plugins-good    | High-quality LGPL plugins                    |
-| gst-plugins-ugly    | GPL-licensed codecs (x264, x265)             |
+| gst-plugins-ugly    | Patent-encumbered components (e.g., H.264, MPEG-2) |
 | gst-plugins-bad     | Experimental/under development               |
 | gst-libav           | Libav integration                            |
 
@@ -53,6 +54,7 @@ Basic processing units with specific functions:
 - **Source Elements**: Data producers (e.g., filesrc)
 - **Filter Elements**: Data processors (e.g., videoconvert)
 - **Sink Elements**: Data consumers (e.g., autovideosink)
+- **Demuxers/Muxers**: Stream separation/combination (e.g., oggdemux, mp4mux)
 
 ### 2. Pads
 ```mermaid
@@ -114,17 +116,18 @@ typedef struct _GstMyFilter {
   gboolean silent;
 } GstMyFilter;
 
-GType gst_my_filter_get_type(void);
-GST_ELEMENT_REGISTER_DECLARE(my_filter);
+G_DECLARE_FINAL_TYPE(GstMyFilter, gst_my_filter, GST, MY_FILTER, GstElement)
 ```
 
 **Implementation File (`gstmyfilter.c`)**:
 ```c
+#include "gstmyfilter.h"
+
 G_DEFINE_TYPE(GstMyFilter, gst_my_filter, GST_TYPE_ELEMENT);
-GST_ELEMENT_REGISTER_DEFINE(my_filter, "my-filter", GST_RANK_NONE, GST_TYPE_MY_FILTER);
 
 static void gst_my_filter_class_init(GstMyFilterClass *klass) {
   GstElementClass *element_class = GST_ELEMENT_CLASS(klass);
+  
   gst_element_class_set_static_metadata(element_class,
     "My Filter", "Filter/My", "Custom filter example", "Developer <dev@example.com>");
 }
@@ -132,6 +135,18 @@ static void gst_my_filter_class_init(GstMyFilterClass *klass) {
 static void gst_my_filter_init(GstMyFilter *filter) {
   // Initialize pads and properties
 }
+
+GST_PLUGIN_DEFINE(
+  GST_VERSION_MAJOR,
+  GST_VERSION_MINOR,
+  my_filter,
+  "My custom filter plugin",
+  my_filter_init,
+  "1.0",
+  "LGPL",
+  "gst-plugin",
+  "https://example.com"
+)
 ```
 
 ### 3. Pad Templates
@@ -185,5 +200,5 @@ gst-launch-1.0 filesrc location=input.mp4 ! decodebin \
 ## References
 - [Official Documentation](https://gstreamer.freedesktop.org/documentation/)
 - [Plugin Development Guide](https://gstreamer.freedesktop.org/documentation/plugin-development/)
-
-
+- [GStreamer Daemon (gstd)](https://gstreamer.freedesktop.org/documentation/tools/gstd.html)
+- [Element Registration Patterns](https://gstreamer.freedesktop.org/documentation/plugin-development/basics/plugin.html)
