@@ -1,5 +1,4 @@
 # gstreamer-dev-guide
-
 A comprehensive guide to GStreamer's architecture, plugin development, and multimedia workflows.  
 **Ideal for developers** exploring streaming, transcoding, and real-time media processing.
 
@@ -20,4 +19,4 @@ A comprehensive guide to GStreamer's architecture, plugin development, and multi
 - Open-source contributors exploring plugin development.
 - Researchers implementing custom media pipelines.
 
-**[🚀 Get Started](gstreamer-doc.md) | [📚 Official Docs](https://gstreamer.freedesktop.org/documentation/) **
+**[🚀 Get Started](gstreamer-doc.md) | [📚 Official Docs](https://gstreamer.freedesktop.org/documentation/) | [🏠 GStreamer Homepage](https://gstreamer.freedesktop.org/)**
