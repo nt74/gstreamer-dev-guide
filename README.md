@@ -10,9 +10,8 @@ A comprehensive guide to GStreamer's architecture, plugin development, and multi
 - **Cross-Platform Support**: Configurations for Linux, Windows, macOS, and embedded systems.
 
 ### Includes:
-- Translated insights from Chinese blogs on GStreamer internals [citation:original user content].
 - References to official docs, GitLab issues, and community best practices.
-- Example projects (NDI, Dektec plugins) with build instructions [citation:original user content].
+- Example projects (NDI, Dektec plugins) with build instructions.
 
 ### Target Audience:
 - Multimedia engineers transitioning to GStreamer.
