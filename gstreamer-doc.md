@@ -201,4 +201,3 @@ gst-launch-1.0 filesrc location=input.mp4 ! decodebin \
 - [Official Documentation](https://gstreamer.freedesktop.org/documentation/)
 - [Plugin Development Guide](https://gstreamer.freedesktop.org/documentation/plugin-development/)
 - [GStreamer Daemon (gstd)](https://developer.ridgerun.com/wiki/index.php/GStreamer_Daemon)
-- [Element Registration Patterns](https://gstreamer.freedesktop.org/documentation/plugin-development/basics/index.html?gi-language=c)
